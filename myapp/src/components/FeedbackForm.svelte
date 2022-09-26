@@ -28,8 +28,15 @@
         }
         }
     }
+
+    function clearForm() {
+        text = ''
+        rating = 0
+        currentItem={}
+    }
 </script>
 
+<h2>{buttonLabel} Review</h2>
 <form on:submit|preventDefault={handleFormSubmit}>
     <div class="input-group">
         <input type="text" bind:value={text} placeholder="Give us some feedback ">
@@ -77,8 +84,10 @@
         </label>
 
     </div>
+        <div class='buttonDiv'>
         <button disabled={ text === '' || rating === 0}>{buttonLabel}</button>
-    
+        <button on:click={clearForm}>Clear</button>
+    </div>
 </form>
 
 <style>
@@ -102,5 +111,9 @@
     button {
         display: block;
         margin: 1em auto 0 auto;
+    }
+    h2{
+        color: white;
+        text-align: center;
     }
 </style>
