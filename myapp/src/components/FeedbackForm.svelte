@@ -4,16 +4,32 @@
     let text = ''
     let rating = 0;
     const dispatch = createEventDispatcher()
+    export let currentItem
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault()
-        dispatch('add-feedback', { text, rating})
+    const handleFormSubmit = () => {
+        if(currentItem.rating === undefined) {
+            dispatch('add-feedback', { text, rating})
+        }
+            dispatch('add-feedback', { text, rating, currentItem})
         text = ''
-        rating = 0;
+        rating = 0
+        currentItem={}
+    }
+
+    $: buttonLabel = currentItem.text === undefined ? 'Add' : 'Update'
+
+    $: {
+        console.log('currentItem',currentItem)
+        if(currentItem.text) {
+            if(text!=currentItem.text && rating!=currentItem.rating) {
+        text = currentItem.text
+        rating = currentItem.rating
+        }
+        }
     }
 </script>
 
-<form on:submit={handleFormSubmit}>
+<form on:submit|preventDefault={handleFormSubmit}>
     <div class="input-group">
         <input type="text" bind:value={text} placeholder="Give us some feedback ">
     </div>
@@ -60,13 +76,13 @@
         </label>
 
     </div>
-        <button disabled={ text =='' || rating === 0}>Send</button>
+        <button disabled={ text === '' || rating === 0}>{buttonLabel}</button>
     
 </form>
 
 <style>
     form {
-        max-width: 200px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 20px;
         background-color: orange;
@@ -74,6 +90,9 @@
     }
     .input-group {
         margin: 1em 0;
+    }
+    .input-group input{ 
+        width: 100%;
     }
     .radio-group label {
         display: block;

@@ -17,26 +17,39 @@
 
   $: count = feedback.length
   $: average = feedback.reduce((acc, { rating }) => acc + rating ,0) / count
+  $: currentItem = {}
+
+  $ : console.log(feedback)
 
   function deleteFeedback(e) {
     feedback = feedback.filter((feedback) => feedback.id!==e.detail)
   }
 
   function addFeedback(e) {
-    feedback.push({
+    if(!feedback.includes(e.detail.currentItem)) {
+      console.log('adding')
+      feedback.push({
       id: feedback.length + 1,
       text: e.detail.text,
       rating: e.detail.rating
     })
     feedback = feedback
+    } else {
+      console.log('updating')
+      const updatedFeedback = feedback.map(obj =>
+      obj.id === e.detail.currentItem.id ? { ...obj, text: e.detail.text, rating: e.detail.rating } : obj
+      );
+      console.log('updatedFeedback',updatedFeedback)
+      feedback=updatedFeedback
+    }
+    
+    
   }
 
   function editFeedback(e) {
-    console.log(e.detail)
-    let currentItem = feedback.find((fb) => fb.id === e.detail)
-    console.log(currentItem)
+    currentItem = feedback.find((fb) => fb.id === e.detail)
   }
 </script>
-<FeedbackForm on:add-feedback={addFeedback}/>
+<FeedbackForm on:add-feedback={addFeedback} {currentItem}/>
 <FeedbackStats {count} {average} />
 <FeedbackList {feedback} on:delete-feedback={deleteFeedback} on:edit-feedback={editFeedback} />
