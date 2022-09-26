@@ -19,15 +19,12 @@
   $: average = feedback.reduce((acc, { rating }) => acc + rating ,0) / count
   $: currentItem = {}
 
-  $ : console.log(feedback)
-
   function deleteFeedback(e) {
     feedback = feedback.filter((feedback) => feedback.id!==e.detail)
   }
 
   function addFeedback(e) {
     if(!feedback.includes(e.detail.currentItem)) {
-      console.log('adding')
       feedback.push({
       id: feedback.length + 1,
       text: e.detail.text,
@@ -35,11 +32,9 @@
     })
     feedback = feedback
     } else {
-      console.log('updating')
       const updatedFeedback = feedback.map(obj =>
       obj.id === e.detail.currentItem.id ? { ...obj, text: e.detail.text, rating: e.detail.rating } : obj
       );
-      console.log('updatedFeedback',updatedFeedback)
       feedback=updatedFeedback
     }
     

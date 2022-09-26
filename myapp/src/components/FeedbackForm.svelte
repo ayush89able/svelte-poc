@@ -9,8 +9,10 @@
     const handleFormSubmit = () => {
         if(currentItem.rating === undefined) {
             dispatch('add-feedback', { text, rating})
-        }
+        } else {
             dispatch('add-feedback', { text, rating, currentItem})
+        }
+           
         text = ''
         rating = 0
         currentItem={}
@@ -19,7 +21,6 @@
     $: buttonLabel = currentItem.text === undefined ? 'Add' : 'Update'
 
     $: {
-        console.log('currentItem',currentItem)
         if(currentItem.text) {
             if(text!=currentItem.text && rating!=currentItem.rating) {
         text = currentItem.text
