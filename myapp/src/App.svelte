@@ -21,7 +21,22 @@
   function deleteFeedback(e) {
     feedback = feedback.filter((feedback) => feedback.id!==e.detail)
   }
+
+  function addFeedback(e) {
+    feedback.push({
+      id: feedback.length + 1,
+      text: e.detail.text,
+      rating: e.detail.rating
+    })
+    feedback = feedback
+  }
+
+  function editFeedback(e) {
+    console.log(e.detail)
+    let currentItem = feedback.find((fb) => fb.id === e.detail)
+    console.log(currentItem)
+  }
 </script>
-<FeedbackForm />
+<FeedbackForm on:add-feedback={addFeedback}/>
 <FeedbackStats {count} {average} />
-<FeedbackList {feedback} on:delete-feedback={deleteFeedback}/>
+<FeedbackList {feedback} on:delete-feedback={deleteFeedback} on:edit-feedback={editFeedback} />

@@ -8,6 +8,10 @@
         dispatch('delete-feedback', id)
     }
 
+    function handleEdit(id) {
+        dispatch('edit-feedback', id)
+    }
+
 </script>
 
 <Card>
@@ -15,6 +19,9 @@
     <div class="rating">
         {item.rating}
     </div>
+    <button class="edit" on:click= {() => handleEdit(item.id)}>
+        Edit
+    </button>
     <button class="close" on:click= {() => handleDelete(item.id)}>
         X
     </button>
@@ -39,5 +46,11 @@
         position: absolute;
         top: 10px;
         right: 10px;
+    }
+
+    .edit {
+        position: absolute;
+        top: 10px;
+        right: 40px;
     }
 </style>

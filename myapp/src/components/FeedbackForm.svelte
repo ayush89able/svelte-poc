@@ -1,16 +1,67 @@
 <script>
-    let text = ''
+    import { createEventDispatcher } from "svelte";
 
-    const handleInput = (e) => {
-        text = e.target.value
+    let text = ''
+    let rating = 0;
+    const dispatch = createEventDispatcher()
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        dispatch('add-feedback', { text, rating})
+        text = ''
+        rating = 0;
     }
 </script>
 
-<form>
+<form on:submit={handleFormSubmit}>
     <div class="input-group">
-        <input type="text" on:input={handleInput} placeholder="Give us some feedback ">
-        <button>Send</button>
+        <input type="text" bind:value={text} placeholder="Give us some feedback ">
     </div>
+    <div class="radio-group">
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={1}>
+            One rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={2}>
+            Two rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={3}>
+            Three rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={4}>
+            Four rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={5}>
+            Five rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={6}>
+            Six rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={7}>
+            Seven rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={8}>
+            Eight rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={9}>
+            Nine rating
+        </label>
+        <label>
+            <input type=radio bind:group={rating} name="rating" value={10}>
+            Ten rating
+        </label>
+
+    </div>
+        <button disabled={ text =='' || rating === 0}>Send</button>
+    
 </form>
 
 <style>
@@ -20,5 +71,16 @@
         padding: 20px;
         background-color: orange;
         border-radius: 10px
+    }
+    .input-group {
+        margin: 1em 0;
+    }
+    .radio-group label {
+        display: block;
+        margin: 2.5px;
+    }
+    button {
+        display: block;
+        margin: 1em auto 0 auto;
     }
 </style>
