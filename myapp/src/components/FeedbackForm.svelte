@@ -85,8 +85,8 @@
 
     </div>
         <div class='buttonDiv'>
-        <button disabled={ text === '' || rating === 0}>{buttonLabel}</button>
-        <button disabled={ text === '' || rating === 0} on:click={clearForm}>Clear</button>
+            <se-button option="flat" type="submit" color="primary" disabled={ text === '' || rating === 0}>{buttonLabel}</se-button>
+            <se-button option="flat" color="secondary" disabled={ text === '' || rating === 0} on:click={clearForm}>Clear</se-button>
     </div>
 </form>
 
@@ -108,7 +108,7 @@
         display: block;
         margin: 2.5px;
     }
-    button {
+    .buttonDiv {
         display: block;
         margin: 1em auto 0 auto;
     }
