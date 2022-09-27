@@ -86,7 +86,7 @@
     </div>
         <div class='buttonDiv'>
         <button disabled={ text === '' || rating === 0}>{buttonLabel}</button>
-        <button on:click={clearForm}>Clear</button>
+        <button disabled={ text === '' || rating === 0} on:click={clearForm}>Clear</button>
     </div>
 </form>
 
